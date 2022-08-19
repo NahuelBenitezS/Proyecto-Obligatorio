@@ -18,10 +18,25 @@
 
 <body>
   <main class="mt-5">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+    <div class="container signin">
+      <form onsubmit="return false">
+        <img class="mb-4 signin" src="./img/login.png" alt="" >
+        <h1 class="h3 mb-3 fw-normal">Inicio de Sesión</h1>
+    
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" placeholder="name@example.com">
+          <label for="floatingInput">Email</label>
+          <div id="email_error">Porfavor ingresar un correo</div>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="password" placeholder="Password">
+          <label for="floatingPassword">Contraseña</label>
+          <div id="pass_error">Porfavor ingresar una constraseña</div>
+        </div>
+        <br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" id="ingresar" onclick="login()">Ingresar</button>
+      </form>
     </div>
   </main>
   <footer class="text-muted">
