@@ -15,5 +15,5 @@ function login() {
     pass_error.style.display = "block";
     return;
   }
-   window.location.assign("index.html");
+   window.location.assign("principal.html");
 }
