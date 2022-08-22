@@ -1,4 +1,5 @@
 # Proyecto Obligatorio
 
-Para probar el Oauth Login debe iniciar npm run dev, te abre la pagina localmente.
+Para probar el Oauth Login desde live Server con el host: http://localhost:5500, o puede probar desde: 
+https://nahuelbenitezs.github.io/Proyecto-Obligatorio/
  
