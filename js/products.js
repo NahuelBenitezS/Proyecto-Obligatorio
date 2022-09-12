@@ -13,6 +13,12 @@ const search = document.querySelector(".Search-input");
 let productsArray = [];
 let productsArrayInit = [];
 
+
+function setProductId(id) {
+    localStorage.setItem("productID", id);
+    window.location = "product-info.html"
+}
+
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
 function showProductsList(){
     let htmlContentToAppend = "";
@@ -24,7 +30,7 @@ function showProductsList(){
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
 
         htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action">
+        <div onclick="setProductId(${product.id})" class="list-group-item list-group-item-action cursor-active">
             <div class="row">
                 <div class="col-3">
                     <img src="` + product.image + `" alt="product image" class="img-thumbnail">
@@ -56,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         {
             productsArray = resultObj.data.products;
             productsArrayInit = resultObj.data.products;
-
+            console.log(productsArray);
             showProductsList();
         }
     });
