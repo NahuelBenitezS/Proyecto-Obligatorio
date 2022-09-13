@@ -7,6 +7,10 @@ const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 const navbarNav = document.getElementById("navbarNav");
+const mail = localStorage.getItem("user")
+let indice = mail.indexOf("@"); // Busca el índice del @
+const user = mail.substring(0, indice); // Cortar desde 0 hasta la aparición del primer @
+
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";

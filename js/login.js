@@ -15,7 +15,7 @@ function login() {
     pass_error.style.display = "block";
     return;
   }
-  localStorage.setItem("user", JSON.stringify(mail.value)); // guardar mail en localstorage user
+  localStorage.setItem("user", mail.value); // guardar mail en localstorage user
    window.location.assign("principal.html");
 }
 
@@ -41,7 +41,7 @@ function handleCredentialResponse(response) {
      console.log("Email: " + responsePayload.email);
 
      if (responsePayload.email.length > 0) {
-      localStorage.setItem("user", JSON.stringify(responsePayload.email)); // guardar mail en localstorage user
+      localStorage.setItem("user", responsePayload.email); // guardar mail en localstorage user
       window.location.assign("principal.html");
      }
 }

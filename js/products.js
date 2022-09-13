@@ -1,5 +1,4 @@
 const cat = localStorage.getItem("catID");
-console.log(cat);
 const ORDER_ASC_BY_COST = "AscCost";
 const ORDER_DESC_BY_COST = "DescCost";
 const ORDER_BY_PROD_REL = "Precio.";
@@ -62,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         {
             productsArray = resultObj.data.products;
             productsArrayInit = resultObj.data.products;
-            console.log(productsArray);
             showProductsList();
         }
     });
@@ -176,9 +174,6 @@ function filterSearch(e){
     
     }
 
-    console.log(resultSearch);
-    console.log(resultSearch.length);
-    console.log(e.target.value.length);
 }
 
 //FINAL BUSCADOR

@@ -1,5 +1,6 @@
 const productID = localStorage.getItem("productID");
-
+const puntuacion = document.getElementById("puntuacion");
+const opinion = document.getElementById("opinion");
 //array donde se cargarán los datos recibidos:
 let productsInfoArray = [];
 let commentsArray = [];
@@ -8,7 +9,6 @@ let commentsArray = [];
 
 function showProductsInfo(){
     let htmlContentToAppend = "";
-    console.log(productsInfoArray);
 
         let productinfo = productsInfoArray; 
         
@@ -34,7 +34,7 @@ function showProductsInfo(){
                         <div class="row">
                          ${productinfo.images.map((ima) => {
                           return `<div class="col"><img src="${ima}" alt="product image" class="img-thumbnail"></div>`
-                         })}  
+                         }).join(" ")}  
                         </div>
                         </div>
                     </div>
@@ -50,18 +50,26 @@ function showProductsInfo(){
 // inicio comments
 function showcomments(){
     let htmlContentToAppend = "";
-    
-    for(let i = 0; i < commentsArray.length; i++){   //array.products
-        let comment = commentsArray[i]; //array.products
+    let scoretemplate = [0,1,2,3,4];
 
+    for(let i = 0; i < commentsArray.length; i++){ 
+        let comment = commentsArray[i]; //array.comments
+        let commentScore = comment.score
         htmlContentToAppend += `
         <div class="list-group-item">
             <div class="row">
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
-                        <h5>`+ comment.user + ` - ` + comment.dateTime +`</h5> 
-                        <p> `+ comment.description +`</p> 
+                            <h5>`+ comment.user + ` - ` + comment.dateTime + `
+                            ${scoretemplate.map((item, index) => {
+                                if( index < commentScore){
+                                    return `<span class="fa fa-star checked"></span>`
+                                } else {
+                                    return `<span class="fa fa-star"></span>`
+                                }
+                            }).join(" ")}</h5> 
+                            <p> `+ comment.description +`</p> 
                         </div>
                     </div>
                 </div>
@@ -73,8 +81,43 @@ function showcomments(){
     }
 }
 
-// final comments
+// inicio form
+function enviar(){
+    const date = new Date(); // fecha
+    const [month, day, year, hour, minutes, seconds] = [date.getMonth(), date.getDate(), date.getFullYear(), date.getHours(), date.getMinutes(), date.getSeconds()];
+    
+    const fecha = year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
+    
+    let htmlContentToAppend = "";
+    let scoretemplate = [0,1,2,3,4];
 
+    htmlContentToAppend += `
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="mb-1">
+                            <h5>`+ user + ` - ` + fecha + `
+                            ${scoretemplate.map((item, index) => {
+                                if( index < puntuacion.value ){
+                                    return `<span class="fa fa-star checked"></span>`
+                                } else {
+                                    return `<span class="fa fa-star"></span>`
+                                }
+                            }).join(" ")}</h5> 
+                            <p> `+ opinion.value +`</p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+
+        document.getElementById("comments").innerHTML += htmlContentToAppend; 
+}
+
+//final form
+
+// final comments
 
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL + productID + EXT_TYPE).then(function(resultObj){
