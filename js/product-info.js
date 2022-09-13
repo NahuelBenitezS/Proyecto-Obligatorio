@@ -2,6 +2,8 @@ const productID = localStorage.getItem("productID");
 
 //array donde se cargarán los datos recibidos:
 let productsInfoArray = [];
+let commentsArray = [];
+
 
 
 function showProductsInfo(){
@@ -30,10 +32,9 @@ function showProductsInfo(){
                         <p> `+ productinfo.soldCount +`</p> 
                         <h5>Imágenes ilustrativas</h5>
                         <div class="row">
-                        <div class="col"><img src="` + productinfo.images[0] + `" alt="product image" class="img-thumbnail"></div>
-                        <div class="col"><img src="` + productinfo.images[1] + `" alt="product image" class="img-thumbnail"></div>
-                        <div class="col"><img src="` + productinfo.images[2] + `" alt="product image" class="img-thumbnail"></div>
-                        <div class="col"><img src="` + productinfo.images[3] + `" alt="product image" class="img-thumbnail"></div>
+                         ${productinfo.images.map((ima) => {
+                          return `<div class="col"><img src="${ima}" alt="product image" class="img-thumbnail"></div>`
+                         })}  
                         </div>
                         </div>
                     </div>
@@ -46,6 +47,33 @@ function showProductsInfo(){
     
 }
 
+// inicio comments
+function showcomments(){
+    let htmlContentToAppend = "";
+    
+    for(let i = 0; i < commentsArray.length; i++){   //array.products
+        let comment = commentsArray[i]; //array.products
+
+        htmlContentToAppend += `
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="mb-1">
+                        <h5>`+ comment.user + ` - ` + comment.dateTime +`</h5> 
+                        <p> `+ comment.description +`</p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+
+        document.getElementById("comments").innerHTML = htmlContentToAppend; 
+    }
+}
+
+// final comments
 
 
 document.addEventListener("DOMContentLoaded", function(e){
@@ -54,6 +82,15 @@ document.addEventListener("DOMContentLoaded", function(e){
         {
             productsInfoArray = resultObj.data; 
             showProductsInfo();
+        }
+    });
+
+    getJSONData(PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE).then(function(resultObj){
+        if (resultObj.status === "ok")
+        {
+            commentsArray = resultObj.data; 
+            console.log(commentsArray);
+            showcomments();
         }
     });
 });
