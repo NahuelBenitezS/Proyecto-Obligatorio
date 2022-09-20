@@ -194,3 +194,7 @@ a.custom-card:hover {
   color: #C62828;
   display: none;
 }
+
+.carousel {
+  max-width:50%;
+}

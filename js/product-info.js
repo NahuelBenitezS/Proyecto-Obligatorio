@@ -9,6 +9,7 @@ let commentsArray = [];
 
 function showProductsInfo(){
     let htmlContentToAppend = "";
+    let productrelated = "";
 
         let productinfo = productsInfoArray; 
         
@@ -31,11 +32,24 @@ function showProductsInfo(){
                         <h5>Cantidad de Vendidos</h5>
                         <p> `+ productinfo.soldCount +`</p> 
                         <h5>Imágenes ilustrativas</h5>
-                        <div class="row">
-                         ${productinfo.images.map((ima) => {
-                          return `<div class="col"><img src="${ima}" alt="product image" class="img-thumbnail"></div>`
-                         }).join(" ")}  
-                        </div>
+                        <div id="arrowCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                ${productinfo.images.map((ima) => {
+                                    if ( ima === productinfo.images[0]){
+                                        return `<div class="carousel-item active" data-bs-interval="2000"><img src="${ima}" alt="product image" class="img-thumbnail"></div>`
+                                    } else {
+                                        return `<div class="carousel-item" data-bs-interval="2000"><img src="${ima}" alt="product image" class="img-thumbnail"></div>`
+                                    } 
+                                }).join(" ")}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#arrowCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#arrowCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -43,8 +57,38 @@ function showProductsInfo(){
         </div>
         `
 
+         // PRODUCTOS RELACIONADOS
+        productrelated += `
+        <div class="">
+            <div class="row">
+                    <div class=" w-100 justify-content-between">
+                        <div class="mb-1">
+                        <h5>Productos relacionados</h5>
+                        <br>
+                        <div class="row">
+                         ${productinfo.relatedProducts.map((ima) => {
+                          return `<div onclick="setProductId(${ima.id})" class="col card cursor-active" style="padding:0px; margin:5px; max-width:20%;"> 
+                          <img class="card-img-top" src="${ima.image}" alt="product image" class="img-thumbnail">
+                          <div class="card-body">
+                          <p class="card-text">${ima.name}</p> 
+                          </div>
+                          </div>`
+                         }).join(" ")}  
+                        </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        `
+
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend; 
+        document.getElementById("productRelated").innerHTML = productrelated; 
     
+}
+
+function setProductId(id) {
+    localStorage.setItem("productID", id);
+    window.location = "product-info.html"
 }
 
 // inicio comments
@@ -132,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         if (resultObj.status === "ok")
         {
             commentsArray = resultObj.data; 
-            console.log(commentsArray);
             showcomments();
         }
     });

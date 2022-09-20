@@ -45,6 +45,17 @@ let getJSONData = function(url){
     });
 }
 
+// boton de usuario
 if (localStorage.getItem("user").length > 0){
-  navbarNav.innerHTML += `<li class="nav-item"><a class="nav-link" href="my-profile.html">${localStorage.getItem("user")}</a></li>`;
+  navbarNav.innerHTML += `<li class="nav-item">
+  <div class="dropdown">
+  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  ${user}
+  </a> 
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+    <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+    <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+  </ul>
+</div></li>`;
   }

@@ -4,6 +4,8 @@ const mail = document.getElementById("email");
 const mail_error = document.getElementById("email_error");
 const pass_error = document.getElementById("pass_error");
 
+localStorage.removeItem("user");
+
 function login() {
   if (mail.value.length <= 0) {
    mail.style.border = "1px solid red";
