@@ -100,26 +100,17 @@ function setProductId(id) {
 
 // funcion para guardar producto en el carrito.
 function setProductCart(){
-    const newProductCart = {
-        id: productsInfoArray.id
+    if (carritofinal < 1 || carritofinal == null){
+        carrito.push(productsInfoArray.id);
+    localStorage.setItem("productCartID", JSON.stringify(carrito));
+    } else
+    {
+        carritofinal.push(productsInfoArray.id);
+        localStorage.setItem("productCartID", JSON.stringify(carritofinal));
     }
-
-    addProductCart(productsInfoArray.id);
     window.location = "cart.html"
 }
 
-
-function addProductCart(newProductCart){
-        if (carritofinal < 1 || carritofinal == null){
-            carrito.push(newProductCart);
-        localStorage.setItem("productCartID", JSON.stringify(carrito));
-        } else
-        {
-            carritofinal.push(newProductCart);
-            localStorage.setItem("productCartID", JSON.stringify(carritofinal));
-        }
-         
-}
 
 // inicio comments
 function showcomments(){
