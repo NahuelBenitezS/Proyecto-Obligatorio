@@ -4,7 +4,8 @@ const opinion = document.getElementById("opinion");
 //array donde se cargarán los datos recibidos:
 let productsInfoArray = [];
 let commentsArray = [];
-
+let carrito = [];
+let carritofinal = JSON.parse(localStorage.getItem("productCartID"));
 
 
 function showProductsInfo(){
@@ -20,8 +21,14 @@ function showProductsInfo(){
                     <div class=" w-100 justify-content-between">
                         <div class="mb-1">
                         <br>
+                        <div class="row">
+                        <div class="col-md-4">
                         <h1>`+ productinfo.name + `</h1> 
-                        <br>
+                        </div>
+                        <div class="col-md-4 offset-md-4">
+                        <button type="button" class="btn btn-success" onclick="setProductCart()">Comprar</button>
+                        </div>
+                        </div>
                         <hr>
                         <h5>Precio</h5>
                         <p> `+ productinfo.currency + ` &nbsp;` + productinfo.cost +`</p> 
@@ -89,6 +96,29 @@ function showProductsInfo(){
 function setProductId(id) {
     localStorage.setItem("productID", id);
     window.location = "product-info.html"
+}
+
+// funcion para guardar producto en el carrito.
+function setProductCart(){
+    const newProductCart = {
+        id: productsInfoArray.id
+    }
+
+    addProductCart(productsInfoArray.id);
+    window.location = "cart.html"
+}
+
+
+function addProductCart(newProductCart){
+        if (carritofinal < 1 || carritofinal == null){
+            carrito.push(newProductCart);
+        localStorage.setItem("productCartID", JSON.stringify(carrito));
+        } else
+        {
+            carritofinal.push(newProductCart);
+            localStorage.setItem("productCartID", JSON.stringify(carritofinal));
+        }
+         
 }
 
 // inicio comments
