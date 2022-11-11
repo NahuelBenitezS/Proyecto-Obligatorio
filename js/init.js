@@ -45,9 +45,16 @@ let getJSONData = function(url){
     });
 }
 
+
+let liLogin = document.getElementById("login");
+
 // boton de usuario
 if (localStorage.getItem("user").length > 0){
-  navbarNav.innerHTML += `<li class="nav-item">
+
+  if(liLogin){
+    liLogin.remove();
+  }
+  navbarNav.innerHTML += `<li class="nav-item" id="menu">
   <div class="dropdown">
   <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
   ${user}
@@ -55,7 +62,20 @@ if (localStorage.getItem("user").length > 0){
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
     <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
-    <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+    <li><a class="dropdown-item" href="index.html" id="logOut">Cerrar sesión</a></li>
   </ul>
 </div></li>`;
   }
+
+  // eliminar usuario y agregar link iniciar sesion
+  logOut.addEventListener('click', function(){
+    localStorage.removeItem("user");
+    let menu = document.getElementById("menu");
+    console.log("hola");
+    menu.remove()
+    navbarNav.innerHTML += `
+    <li class="nav-item" id="login">
+            <a class="nav-link" href="login.html">Iniciar sesion</a>
+          </li>`;
+
+  })

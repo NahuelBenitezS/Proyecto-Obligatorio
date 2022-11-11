@@ -151,7 +151,6 @@ function showCart(){
     let textInvalid = document.getElementById("textInvalid");
 
     tarjeta.addEventListener('click', () => {
-        console.log("hola");
         numberAccount.setAttribute("disabled","");
         numberCard.removeAttribute("disabled");
         vencimiento.removeAttribute("disabled");
@@ -225,6 +224,7 @@ function showCart(){
       }
       
 
+      // ALERTA DE COMPRA EXITOSA
     function showAlertSuccess() {
         document.getElementById("alert-success").classList.add("show");
       }

@@ -4,7 +4,6 @@ const mail = document.getElementById("email");
 const mail_error = document.getElementById("email_error");
 const pass_error = document.getElementById("pass_error");
 
-localStorage.removeItem("user");
 
 function login() {
   if (mail.value.length <= 0) {
@@ -18,7 +17,7 @@ function login() {
     return;
   }
   localStorage.setItem("user", mail.value); // guardar mail en localstorage user
-   window.location.assign("principal.html");
+   window.location.assign("index.html");
 }
 
 
@@ -34,7 +33,7 @@ function handleCredentialResponse(response) {
       return JSON.parse(jsonPayload);
   };
      const responsePayload = decodeJwtResponse(response.credential);
-
+    
      console.log("ID: " + responsePayload.sub);
      console.log('Full Name: ' + responsePayload.name);
      console.log('Given Name: ' + responsePayload.given_name);
@@ -43,7 +42,8 @@ function handleCredentialResponse(response) {
      console.log("Email: " + responsePayload.email);
 
      if (responsePayload.email.length > 0) {
+      localStorage.setItem("image", responsePayload.picture);
       localStorage.setItem("user", responsePayload.email); // guardar mail en localstorage user
-      window.location.assign("principal.html");
+      window.location.assign("index.html");
      }
 }
