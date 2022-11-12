@@ -7,7 +7,7 @@ let secondSurname = document.getElementById("secondSurname");
 let phone = document.getElementById("phone");
 let imgProfile = document.getElementById("imgProfile");
 let img = document.getElementById("img");
-let data = {};
+let data = {firstName:"",secondName:"",firstSurname:"",secondSurname:"",phone:"",email:"",imgProfile:""}
 datauser = JSON.parse(localStorage.getItem(user));
 email.value = localStorage.getItem("user");
 
@@ -22,8 +22,7 @@ if (datauser !== null) {
   img.src = localStorage.getItem("image");
   if (datauser.imgProfile !== "") {
     img.src = datauser.imgProfile;
-  } else {
-  }
+  } 
 }
 
 formPerfil.addEventListener("submit", saveChanges);
@@ -36,12 +35,13 @@ function saveChanges() {
   data.secondSurname = secondSurname.value;
   data.phone = phone.value;
   data.email = email.value;
-
+  localStorage.setItem(user, JSON.stringify(data));
   reader.readAsDataURL(imgProfile.files[0]);
 
- 
 }
+
 const reader = new FileReader();
+
 reader.onloadend = function (event) {
     data.imgProfile = event.target.result;
     img.src = event.target.result;
